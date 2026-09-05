@@ -9,12 +9,12 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      required: true,
     },
   ],
   upload: {
-    // These are not supported on Workers yet due to lack of sharp
+    disableLocalStorage: true,
     crop: false,
     focalPoint: false,
+    imageSizes: undefined,
   },
 }
