@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils"
 
 type NavItem = {
   href: string
-  key: "home" | "projectManagement" | "designStudio" | "services" | "aboutUs" | "contact"
+  key: "home" | "projectManagement" | "designStudio" | "services" | "aboutUs" | "contact" | "blog"
 }
 
 const NAV_ITEMS: NavItem[] = [
@@ -25,6 +25,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: "/services", key: "services" },
   { href: "/about", key: "aboutUs" },
   { href: "#contact", key: "contact" },
+  { href: "/blog", key: "blog" },
 ]
 
 export function SiteHeader() {
@@ -71,7 +72,7 @@ export function SiteHeader() {
       <div className="container mx-auto flex h-16 max-w-screen-2xl items-center justify-between px-4 md:px-6">
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center space-x-2">
-          <Logo className="h-10 w-auto" />
+          <Logo className="h-7 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
@@ -112,7 +113,7 @@ export function SiteHeader() {
                 <div className="flex flex-col h-full">
                   <div className="p-4 border-b">
                     <Link href={`/${locale}`} onClick={() => setIsOpen(false)}>
-                      <Logo className="h-10 w-auto" />
+                      <Logo className="h-7 w-auto" />
                     </Link>
                   </div>
                   <div className="flex-1 p-4 overflow-y-auto">
