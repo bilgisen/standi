@@ -39,18 +39,70 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
       : date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
   }
 
-  const renderRichText = (content: unknown): string => {
-    if (!content) return ''
-    if (typeof content === 'string') return content
+  const renderNode = (node: any, index: number): React.ReactNode => {
+    if (!node) return null
+
+    if (node.type === 'text') {
+      let text: React.ReactNode = node.text || ''
+      if (node.format) {
+        if (node.format & 1) text = <strong key={index}>{text}</strong>
+        if (node.format & 2) text = <em key={index}>{text}</em>
+        if (node.format & 8) text = <code key={index} className="rounded bg-muted px-1.5 py-0.5 text-sm">{text}</code>
+        if (node.format & 16) text = <u key={index}>{text}</u>
+      }
+      return text
+    }
+
+    const children = node.children?.map((child: any, i: number) => renderNode(child, i)) || []
+
+    switch (node.type) {
+      case 'paragraph':
+        return <p key={index} className="mb-4 text-lg leading-relaxed">{children}</p>
+      case 'heading':
+        const Tag = (`h${node.level || 2}`) as keyof JSX.IntrinsicElements
+        const headingClass = node.level === 1 ? 'text-4xl font-bold mt-8 mb-4' :
+                            node.level === 2 ? 'text-3xl font-bold mt-8 mb-3' :
+                            node.level === 3 ? 'text-2xl font-semibold mt-6 mb-2' :
+                            'text-xl font-semibold mt-4 mb-2'
+        return <Tag key={index} className={headingClass}>{children}</Tag>
+      case 'list':
+        if (node.listType === 'number') {
+          return <ol key={index} className="mb-4 list-decimal list-inside space-y-1 text-lg">{children}</ol>
+        }
+        return <ul key={index} className="mb-4 list-disc list-inside space-y-1 text-lg">{children}</ul>
+      case 'listitem':
+        return <li key={index}>{children}</li>
+      case 'quote':
+        return <blockquote key={index} className="border-l-4 border-primary pl-4 italic my-6 text-lg text-muted-foreground">{children}</blockquote>
+      case 'link':
+        return (
+          <a
+            key={index}
+            href={node.fields?.url || '#'}
+            target={node.fields?.newTab ? '_blank' : undefined}
+            rel={node.fields?.newTab ? 'noopener noreferrer' : undefined}
+            className="text-primary underline hover:text-primary/80"
+          >
+            {children}
+          </a>
+        )
+      case 'linebreak':
+        return <br key={index} />
+      default:
+        return <div key={index}>{children}</div>
+    }
+  }
+
+  const renderRichText = (content: unknown): React.ReactNode => {
+    if (!content) return null
+    if (typeof content === 'string') return <p className="whitespace-pre-wrap text-lg">{content}</p>
     if (typeof content === 'object' && content !== null && 'root' in content) {
-      const root = (content as { root: { children?: Array<{ children?: Array<{ text?: string }> }> } }).root
+      const root = (content as { root: { children?: any[] } }).root
       if (root.children) {
-        return root.children
-          .map((node) => node.children?.map((child) => child.text || '').join('') || '')
-          .join('\n')
+        return root.children.map((node, i) => renderNode(node, i))
       }
     }
-    return ''
+    return null
   }
 
   return (
@@ -97,13 +149,13 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
             <p className="mb-6 text-lg italic text-muted-foreground">{post.excerpt}</p>
           )}
 
-          <p className="whitespace-pre-wrap text-lg text-muted-foreground">
+          <div className="prose prose-lg max-w-none">
             {renderRichText(post.content)}
-          </p>
+          </div>
 
           {post.author && (
             <p className="mt-8 text-sm text-muted-foreground">
-              {dict.common.author}: {post.author}
+              {locale === 'tr' ? 'Yazar' : 'Author'}: {post.author}
             </p>
           )}
 
