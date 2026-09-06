@@ -15,14 +15,13 @@ import { cn } from "@/lib/utils"
 
 type NavItem = {
   href: string
-  key: "home" | "projectManagement" | "designStudio" | "services" | "aboutUs" | "contact" | "blog"
+  key: "home" | "projectManagement" | "designStudio" | "aboutUs" | "contact" | "blog"
 }
 
 const NAV_ITEMS: NavItem[] = [
   { href: "/", key: "home" },
   { href: "/project", key: "projectManagement" },
   { href: "/design", key: "designStudio" },
-  { href: "/services", key: "services" },
   { href: "/about", key: "aboutUs" },
   { href: "#contact", key: "contact" },
   { href: "/blog", key: "blog" },
