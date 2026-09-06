@@ -4,7 +4,6 @@ import { SiteHeader } from '../components/SiteHeader'
 import { SiteFooter } from '../components/SiteFooter'
 import { LocaleProvider } from '../components/LocaleProvider'
 import { ScrollBasedVelocityDemo } from '../components/Velocity'
-import ConditionalLogos from '../components/ConditionalLogos'
 import Features from '../components/Features'
 import NumbersSection from '../components/Numbers'
 import CTA from '../components/CTA'
@@ -36,7 +35,6 @@ export default async function LangLayout(props: {
             <div className="flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1">{props.children}</main>
-              <ConditionalLogos />
               <Features />
               <NumbersSection />
               <CTA />
