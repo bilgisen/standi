@@ -365,17 +365,17 @@ export const dictionaries = {
     about: {
       hero: {
         badge: 'Hakkımızda',
-        title: 'Global Fuar Ortağınız',
-        description: 'Etkileyici fuar standlarıyla markanızı yükseltin. 10+ yıllık global deneyim. ROI\'nizi Expostep ile en üst düzeye çıkarın.',
+        title: 'Fuar Standlarınız için Küresel Çözüm Ortağınız',
+        description: 'Etkileyici fuar standları ile markanızın kimliğini öne çıkarın. 10 yılı aşkın deneyim. 15 ülkede dünya standartlarında hizmet.',
       },
       body: {
-        intro: 'ExpoStep olarak, 10 yıldan fazla süredir yenilikçi ve göz alıcı fuar standı tasarımı ve inşaatı arayan işletmeler için güvenilir ortak olmaktan gurur duyuyoruz.',
-        paragraph1: 'Etkili marka deneyimlerini hayata geçiriyor, vizyonunuzu somut bir gerçeğe dönüştürüyoruz. İlk kavramdan kuruluma kadar, uzman tasarımcılar, proje yöneticileri ve inşaat ekibimiz kalıcı bir etki bırakan fuar standlarını özenle üretiyor.',
-        countries: 'Almanya, Fransa, İtalya, İspanya, Rusya, Türkiye ve BAE dahil 15\'ten fazla ülkedeki önde gelen markalara hizmet vermekten gurur duyuyoruz.',
-        managementTitle: 'Kavramdan Inşaatá Kesintisiz Proje Yönetimi',
-        managementContent1: 'ExpoStep, proje yönetimine bütüncül bir yaklaşımla yaklaşıyor. Marka kimliğinizi, hedef kitlenizi ve bütçenizi dikkatle değerlendirerek özel bir tasarım kavramı geliştirmek için benzersiz ihtiyaçlarınızı anlamak amacıyla kapsamlı bir danışmanlık ile başlıyoruz.',
-        managementContent2: 'En son 3D modelleme ve görselleştirme araçlarını kullanarak projenizi hayata geçiriyor, sürecin her aşamasında şeffaf iletişim ve ayrıntılı güncellemeler sağlıyoruz.',
-        managementContent3: 'Almanya, Türkiye ve Dubai\'de üretim tesisleri ve 15\'ten fazla ülkede yerel ortak ağı ile zamanında ve kusursuz uygulama sağlıyoruz.',
+        intro: 'Expostep olarak, 10 yılı aşkın süredir yenilikçi ve dikkat çekici fuar standı tasarımı ve üretiminde işletmelerin güvenilir iş ortağı olmaktan gurur duyuyoruz.',
+        paragraph1: 'Markanızı en etkili şekilde sergileyerek, vizyonunuzu somut bir gerçeğe dönüştürüyoruz. İlk konsept tasarımından son kurulum aşamasına kadar, uzman tasarımcılarımız, proje yöneticilerimiz ve üretim ekibimizle, unutulmaz bir izlenim bırakan fuar standları hazırlıyoruz.',
+        countries: 'Almanya, Fransa, İtalya, İspanya, Rusya, Türkiye ve BAE başta olmak üzere, 15\'ten fazla ülkede lider markalara hizmet vermenin onurunu taşıyoruz.',
+        managementTitle: 'Konseptten Kuruluma Kusursuz Proje Yönetimi',
+        managementContent1: 'Expostep, proje yönetiminde bütünlüklü bir yaklaşım benimser. Süreci, markanızın kimliğini, hedef kitlenizi ve bütçenizi detaylı bir şekilde analiz ederek, ihtiyaçlarınıza özel bir tasarım konsepti geliştirdiğimiz kapsamlı bir danışmanlık ile başlatıyoruz.',
+        managementContent2: 'Son teknoloji 3D modelleme ve görselleştirme araçları kullanarak projenizi hayata geçiriyor, her aşamada şeffaf iletişim ve ayrıntılı bilgilendirme sağlıyoruz.',
+        managementContent3: 'Almanya, Türkiye ve Dubai\'deki üretim tesislerimiz ve 15\'ten fazla ülkedeki yerel iş ortaklarımız sayesinde, lojistik, kurulum, söküm ve teknik destek dahil olmak üzere tüm süreçleri kusursuz ve zamanında yönetiyoruz. Böylece siz de, hedef kitlenizle bağlantı kurmaya odaklanabilirsiniz.',
         stats: {
           years: 'Yıllık Deneyim',
           countries: 'Hizmet Verilen Ülke',
@@ -434,7 +434,7 @@ export const dictionaries = {
     contactWidget: {
       address: {
         title: 'Merkez Ofisimiz',
-        desc: 'Ofisimize bekleriz.',
+        desc: 'Kahvemizi içmeye davetlisiniz.',
         link: 'Adresimiz',
       },
       email: {
@@ -486,32 +486,32 @@ export const dictionaries = {
     faq: {
       title: 'Sıkça Sorulan Sorular',
       q1: {
-        question: 'Fuar standı tasarımı ve kurulumu için hangi hizmetleri sunuyorsunuz?',
-        answer: 'Expostep\'te tek odağımız fuar standları ve etkinlik dekorasyonu. 15 ülkede yaratıcı 3D stand tasarımı, profesyonel kurulum ve taşıma, ürün teşhir ünitesi üretimi, fuar dekorasyonu yönetimi, kurulum ve montaj hizmetleri, görsel-işitsel çözümler ve yerinde destek dahil kapsamlı hizmet sunuyoruz.',
+        question: 'Hangi hizmetleri sunuyorsunuz?',
+        answer: 'Expostep olarak, tek odağımız fuar standları ve etkinlik dekorasyonlarıdır. 15\'ten fazla ülkede; yaratıcı 3D stand tasarımı, profesyonel kurulum ve taşımacılık, ürün teşhir üniteleri üretimi, sergi dekorasyon yönetimi, kurulum-söküm hizmetleri, görsel-işitsel çözümler ve yerinde destek dahil olmak üzere eksiksiz bir hizmet sunuyoruz. Amacımız, markanızı en iyi şekilde temsil edecek ve ziyaretçilerinizde unutulmaz bir etki bırakacak çözümler üretmektir.',
       },
       q2: {
-        question: 'Hangi ülkelere hizmet veriyorsunuz?',
-        answer: 'Almanya ve Türkiye\'deki üretim tesislerimizle Avrupa\'da birçok ülkeye, Dubai\'deki tesisimizle Orta Doğu\'da çok sayıda noktaya hizmet veriyoruz. ABD, Brezilya, Arjantin, Katar, Suudi Arabistan, Malezya, Azerbaycan ve Rusya\'da da yerinde hizmet sunuyoruz.',
+        question: 'Hangi ülkelerde ve fuarlarda hizmet verebilirsiniz?',
+        answer: 'Almanya ve Türkiye\'deki üretim tesislerimizle Avrupa\'nın birçok ülkesine, Dubai\'deki tesisimizle ise Ortadoğu\'nun pek çok noktasına hizmet sunuyoruz. Yerel olarak iş birliği yaptığımız akredite stand üreticileriyle süreçlerimizi ve ağımızı sürekli geliştiriyor, Expostep tasarım ofisinde hazırlanan fuar standlarını eksiksiz şekilde hayata geçiriyoruz. Amerika, Brezilya, Arjantin, Katar, Suudi Arabistan, Malezya, Azerbaycan ve Rusya\'da da yerinde hizmet verebiliyor, her geçen gün hizmet ağımızı genişletiyoruz. Markanızı dünyanın neresinde sergilemek isterseniz, danışmanlarımızdan destek alarak süreci kolayca başlatabilirsiniz.',
       },
       q3: {
-        question: 'Tasarım ve fiyat teklif süreçleriniz hakkında bilgi verebilir misiniz?',
-        answer: 'Stand tasarımı talep etmek ve teklif almak için lütfen aşağıdaki talep formunu doldurunuz veya isteğinizi bize e-posta ile gönderiniz. Tasarım ekibimizin iş yüküne bağlı olarak, stand tasarım projeniz ve teklifiniz hakkında sizi bilgilendireceğiz.',
+        question: 'Tasarım ve teklif süreçleriniz ile ilgili bilgi verebilir misiniz?',
+        answer: 'Stand tasarımı talep etmek ve teklif almak için lütfen talep formumuzu doldurabilir, talebinizi e-posta ile iletebilir yada iletişim bilgilerinizi bırakırsanız en kısa sürede size ulaşırız.',
       },
       q4: {
-        question: 'Stand için belirli bir bütçe ayırmadık. Bütçe ölçeğini açıklamak tasarım için önemli mi?',
-        answer: 'Stand tasarım projeleri işletme ihtiyaçlarınıza ve fuara katılım amacınıza göre büyük ölçüde değişebilir. Bütçe ölçeğini belirlemek iki avantaj sağlar: Tasarım ekibi maliyet performansı açısından daha iyi odaklanır ve ihale süreçlerinizi daha verimli yönetirsiniz.',
+        question: 'Standımız için belli bir bütçe planlaması yapmadık. Tasarım için bütçe baremi bildirmek önemli mi?',
+        answer: 'Bütçe baremi tasarımın yönünü belirler ve en iyi maliyet-performans sonucunu almanızı sağlar. Bir bütçe fikriniz yoksa, iletişim bilgilerinizi bırakın; danışmanlarımız size örnek projeler ve maliyet bilgisi paylaşacaktır.',
       },
       q5: {
-        question: 'Fuara ne kadar önceden stand teklifi ve tasarımı için başvurmalı ve projeyi onaylamalıyız?',
-        answer: 'Müşteri taleplerine ve isteklerine mümkün olduğunca hızlı cevap vermek amacımızdır. Stand projeleriniz için üretim onayını mümkün olduğunca erken vermeniz lehinize birkaç avantaj sağlayacaktır.',
+        question: 'Fuardan ne kadar zaman önce stand teklif ve tasarım talep etmeli ve proje onaylamalıyız?',
+        answer: 'Projelerinizi ne kadar erken onaylarsanız, o kadar detaylı tasarım ve üretim çalışması yapılır. Ayrıca erken ödeme avantajlarından faydalanırsınız. Son onaylarda bile tasarım korunarak revizyon yapabiliriz.',
       },
       q6: {
         question: 'Neden Expostep ile çalışmayı tercih etmeliyiz?',
-        answer: 'Sizlerle ilk buluşmamızdan işin teslimine kadar iletişimin gücüne ve sürekliliğine inanıyoruz. Bir çok fuar alanında ve ülkede kazandığımız deneyim ile kurulum sırasında karşılaşabileceğiniz saha risklerini tasarıma başlamadan önce minimize ediyoruz.',
+        answer: 'İletişime ve sürdürülebilirliğe inanıyoruz. Tasarıma başlamadan önce olası saha risklerini minimize ederiz. Tüm süreci titizlikle planlayıp uygular, teknik süreçleri sizin adınıza yürütürüz. Kaynakları doğru ve verimli kullanır, kalite ve yaratıcılıktan ödün vermeden bütçenize uygun çözümler üretiriz. Yeni teknolojileri yakından takip eder, sizin için farklılık yaratacak projeler geliştiririz.',
       },
       q7: {
-        question: 'Sizlerle çalışmaya karar verdik. Stand onayı ve anlaşma sonrası süreç nasıl işliyor?',
-        answer: 'Proje onayınızın ardından standın teknik üretim çizimleri üretime hazır hale getirilir. Üretim ve stand kurulumu boyunca sürekli iletişim halinde oluruz. Standınız, fuar alanındaki son inşaat temizliğinin ardından şirket temsilcinize teslim edilir.',
+        question: 'Sizinle çalışmaya karar verdik. Stand onayı ve anlaşma sonrası süreç nasıl işliyor?',
+        answer: 'Proje onayından sonra teknik çizimler hazırlanır, fuar teknik ekibi ile gerekli izinler alınır. Temsil görseller için grafik talepleri sizden istenir. Kurulum süresince iletişim sağlanır, standınız temiz şekilde teslim edilir. Teknik ekip fuar süresince destek için hazır bulunur.',
       },
     },
     beforeAfter: {
