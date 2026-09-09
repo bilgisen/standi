@@ -39,7 +39,6 @@ export const Posts: CollectionConfig = {
   },
   access: {
     read: () => true,
-    delete: () => true,
   },
   hooks: {
     beforeChange: [generateSlug],
