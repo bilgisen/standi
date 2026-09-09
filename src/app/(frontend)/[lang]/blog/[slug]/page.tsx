@@ -96,10 +96,14 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
   const renderRichText = (content: unknown): React.ReactNode => {
     if (!content) return null
     if (typeof content === 'string') return <p className="whitespace-pre-wrap text-lg">{content}</p>
-    if (typeof content === 'object' && content !== null && 'root' in content) {
-      const root = (content as { root: { children?: any[] } }).root
-      if (root.children) {
-        return root.children.map((node, i) => renderNode(node, i))
+    if (typeof content === 'object' && content !== null) {
+      const root = (content as any).root
+      if (root && root.children && Array.isArray(root.children)) {
+        return root.children.map((node: any, i: number) => renderNode(node, i))
+      }
+      // Fallback: try to render children directly
+      if (Array.isArray((content as any).children)) {
+        return (content as any).children.map((node: any, i: number) => renderNode(node, i))
       }
     }
     return null
