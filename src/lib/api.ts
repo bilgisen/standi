@@ -24,7 +24,6 @@ export interface Post {
   tags?: Array<{ tag: string }>
   author?: string
   publishedDate?: string
-  status: 'draft' | 'published'
   createdAt: string
   updatedAt: string
 }
@@ -47,7 +46,6 @@ export async function fetchPosts(
     depth: '1',
     page: String(page),
     limit: String(limit),
-    where: JSON.stringify({ status: { equals: 'published' } }),
     sort: '-publishedDate',
   })
 
@@ -118,10 +116,7 @@ export async function fetchPostsByCategory(
     depth: '1',
     limit: String(limit),
     where: JSON.stringify({
-      and: [
-        { status: { equals: 'published' } },
-        { category: { equals: category.id } },
-      ],
+      category: { equals: category.id },
     }),
     sort: '-publishedDate',
   })
