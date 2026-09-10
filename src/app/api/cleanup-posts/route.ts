@@ -1,36 +1,30 @@
 import { NextResponse } from 'next/server'
-import { getPayload } from 'payload'
-import config from '@payload-config'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST() {
   try {
-    const payload = await getPayload({ config })
+    // @ts-expect-error Cloudflare env
+    const { env } = await import('cloudflare:workers')
+    const d1 = env.D1
 
-    // Fetch all posts (both published and draft)
-    const allPosts = await payload.find({ collection: 'posts', limit: 100 })
-    const draftPosts = await payload.find({ collection: 'posts', limit: 100, draft: true })
-
-    // Merge unique docs (drafts have different IDs)
-    const seen = new Set<string>()
-    const docs = [...draftPosts.docs, ...allPosts.docs].filter((d) => {
-      const key = String(d.id)
-      if (seen.has(key)) return false
-      seen.add(key)
-      return true
-    })
-
+    // Find all posts
+    const all = await d1.prepare('SELECT id, slug, _status FROM posts LIMIT 100').all()
     const results: string[] = []
-    for (const doc of docs) {
-      try {
-        await payload.delete({ collection: 'posts', id: doc.id })
-        results.push(`ok: ${doc.slug} (${doc.id})`)
-      } catch (e: any) {
-        results.push(`fail: ${doc.slug} (${doc.id}): ${e.message}`)
-      }
+
+    for (const row of all.results as any[]) {
+      await d1.prepare('DELETE FROM posts WHERE id = ?').bind(row.id).run()
+      results.push(`deleted: id=${row.id} slug=${row.slug} status=${row._status}`)
     }
-    return NextResponse.json({ total: docs.length, results })
+
+    // Also delete any version rows
+    const versions = await d1.prepare("SELECT id, parent_id, _status FROM posts_versions LIMIT 100").all()
+    for (const row of versions.results as any[]) {
+      await d1.prepare('DELETE FROM posts_versions WHERE id = ?').bind(row.id).run()
+      results.push(`deleted version: id=${row.id} parent=${row.parent_id}`)
+    }
+
+    return NextResponse.json({ total: results.length, results })
   } catch (e: any) {
     return NextResponse.json({ error: e.message, stack: e.stack }, { status: 500 })
   }
