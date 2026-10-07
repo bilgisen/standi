@@ -24,6 +24,7 @@ export interface Post {
   tags?: Array<{ tag: string }>
   author?: string
   publishedDate?: string
+  _status?: 'draft' | 'published'
   createdAt: string
   updatedAt: string
 }
@@ -46,6 +47,7 @@ export async function fetchPosts(
     depth: '1',
     page: String(page),
     limit: String(limit),
+    where: JSON.stringify({ _status: { equals: 'published' } }),
     sort: '-publishedDate',
   })
 
@@ -60,18 +62,41 @@ export async function fetchPostBySlug(
   slug: string,
   locale: Locale = 'en'
 ): Promise<Post | null> {
-  const params = new URLSearchParams({
+  // Try primary locale first
+  let params = new URLSearchParams({
     locale,
     depth: '1',
     where: JSON.stringify({ slug: { equals: slug } }),
     limit: '1',
   })
 
-  const res = await fetch(`${API_BASE}/posts?${params}`)
+  let res = await fetch(`${API_BASE}/posts?${params}`)
   if (!res.ok) {
     throw new Error(`Failed to fetch post: ${res.statusText}`)
   }
-  const data = await res.json()
+  let data = await res.json()
+  if (data.docs?.[0]?._status === 'published') {
+    return data.docs[0]
+  }
+
+  // Fallback: try other locale if not found or not published
+  const otherLocale: Locale = locale === 'en' ? 'tr' : 'en'
+  params = new URLSearchParams({
+    locale: otherLocale,
+    depth: '1',
+    where: JSON.stringify({ slug: { equals: slug } }),
+    limit: '1',
+  })
+
+  res = await fetch(`${API_BASE}/posts?${params}`)
+  if (!res.ok) {
+    throw new Error(`Failed to fetch post: ${res.statusText}`)
+  }
+  data = await res.json()
+  if (data.docs?.[0]?._status === 'published') {
+    return data.docs[0]
+  }
+
   return data.docs[0] || null
 }
 
@@ -116,7 +141,10 @@ export async function fetchPostsByCategory(
     depth: '1',
     limit: String(limit),
     where: JSON.stringify({
-      category: { equals: category.id },
+      and: [
+        { _status: { equals: 'published' } },
+        { category: { equals: category.id } },
+      ],
     }),
     sort: '-publishedDate',
   })

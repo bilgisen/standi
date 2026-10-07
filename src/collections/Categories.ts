@@ -32,17 +32,35 @@ const generateSlug: CollectionConfig['hooks']['beforeChange'][number] = ({ data 
   return data
 }
 
+const validateLocales: CollectionConfig['hooks']['beforeChange'][number] = ({ data, operation }) => {
+  if (operation === 'create' || operation === 'update') {
+    const title = data?.title
+    const slug = data?.slug
+    if (title && typeof title === 'object') {
+      if (!title.en?.trim()) throw new Error('English title is required')
+      if (!title.tr?.trim()) throw new Error('Turkish title is required')
+    }
+    if (slug && typeof slug === 'object') {
+      if (!slug.en?.trim()) throw new Error('English slug is required')
+      if (!slug.tr?.trim()) throw new Error('Turkish slug is required')
+    }
+  }
+  return data
+}
+
 export const Categories: CollectionConfig = {
   slug: 'categories',
   admin: {
     useAsTitle: 'title',
     group: 'Content',
+    listSearchableFields: ['title', 'slug'],
+    defaultColumns: ['title', 'slug', 'updatedAt'],
   },
   access: {
     read: () => true,
   },
   hooks: {
-    beforeChange: [generateSlug],
+    beforeChange: [generateSlug, validateLocales],
   },
   fields: [
     {
