@@ -8,7 +8,7 @@ export async function POST() {
   try {
     const payload = await getPayload({ config })
     
-    // Check if user exists
+    // Delete existing user
     const existing = await payload.find({
       collection: 'users',
       where: { email: { equals: 'hbkarabey@gmail.com' } },
@@ -16,10 +16,13 @@ export async function POST() {
     })
 
     if (existing.docs.length > 0) {
-      return NextResponse.json({ success: true, message: 'User already exists' })
+      await payload.delete({
+        collection: 'users',
+        id: existing.docs[0].id
+      })
     }
 
-    // Create admin user
+    // Create admin user with new secret
     await payload.create({
       collection: 'users',
       data: {
@@ -28,7 +31,7 @@ export async function POST() {
       }
     })
 
-    return NextResponse.json({ success: true, message: 'Admin user created' })
+    return NextResponse.json({ success: true, message: 'Admin user recreated' })
   } catch (e: any) {
     return NextResponse.json({ error: e.message, stack: e.stack }, { status: 500 })
   }
