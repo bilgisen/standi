@@ -1,11 +1,12 @@
 import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
-import config from '@payload-config'
+import configPromise from '@payload-config'
 
 export const dynamic = 'force-dynamic'
 
 export async function POST() {
   try {
+    const config = await configPromise
     const payload = await getPayload({ config })
     
     // Delete existing user
@@ -33,6 +34,6 @@ export async function POST() {
 
     return NextResponse.json({ success: true, message: 'Admin user recreated' })
   } catch (e: any) {
-    return NextResponse.json({ error: e.message, stack: e.stack }, { status: 500 })
+    return NextResponse.json({ error: e.message, stack: e.stack, name: e.name, code: e.code }, { status: 500 })
   }
 }
