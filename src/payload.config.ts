@@ -40,7 +40,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'https://sidea.jetborsa.workers.dev',
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'https://blog.expostep.com',
   csrf: [
     'https://sidea.jetborsa.workers.dev',
     'https://blog.expostep.com',
