@@ -40,6 +40,12 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'https://sidea.jetborsa.workers.dev',
+  csrf: [
+    'https://sidea.jetborsa.workers.dev',
+    'https://blog.expostep.com',
+    'http://localhost:3000',
+  ],
   collections: [Users, Media, Posts, Categories],
   editor: lexicalEditor(),
   localization: {

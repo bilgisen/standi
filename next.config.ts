@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  experimental: {
+    serverExternalPackages: ['jose', '@payloadcms/db-d1-sqlite'],
+  },
 }
 
 export default withPayload(nextConfig, { devBundleServerPackages: false })
