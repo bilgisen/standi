@@ -1,6 +1,20 @@
 import type { Locale } from '../app/(frontend)/i18n/dictionaries'
 
+function getApiBase(): string {
+  if (typeof window !== 'undefined') return '/api'
+  const site =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    'https://blog.expostep.com'
+  return `${site.replace(/\/$/, '')}/api`
+}
+
 const API_BASE = '/api'
+
+function apiUrl(path: string): string {
+  if (typeof window !== 'undefined') return `${API_BASE}${path}`
+  return `${getApiBase()}${path}`
+}
 
 export interface Category {
   id: string
@@ -51,7 +65,7 @@ export async function fetchPosts(
     sort: '-publishedDate',
   })
 
-  const res = await fetch(`${API_BASE}/posts?${params}`)
+  const res = await fetch(apiUrl(`/posts?${params}`))
   if (!res.ok) {
     throw new Error(`Failed to fetch posts: ${res.statusText}`)
   }
@@ -60,44 +74,40 @@ export async function fetchPosts(
 
 export async function fetchPostBySlug(
   slug: string,
-  locale: Locale = 'en'
+  locale: Locale = 'en',
 ): Promise<Post | null> {
-  // Try primary locale first
-  let params = new URLSearchParams({
+  // Strict locale match: the slug must belong to the requested locale.
+  // Cross-locale fallback was removed because it rendered the wrong language
+  // under the wrong URL (duplicate content, broken hreflang).
+  const params = new URLSearchParams({
     locale,
     depth: '1',
     where: JSON.stringify({ slug: { equals: slug } }),
     limit: '1',
   })
 
-  let res = await fetch(`${API_BASE}/posts?${params}`)
+  const res = await fetch(apiUrl(`/posts?${params}`))
   if (!res.ok) {
     throw new Error(`Failed to fetch post: ${res.statusText}`)
   }
-  let data = await res.json()
-  if (data.docs?.[0]?._status === 'published') {
-    return data.docs[0]
-  }
+  const data = await res.json()
+  const doc = data.docs?.[0]
+  if (!doc || doc._status !== 'published') return null
+  return doc
+}
 
-  // Fallback: try other locale if not found or not published
-  const otherLocale: Locale = locale === 'en' ? 'tr' : 'en'
-  params = new URLSearchParams({
-    locale: otherLocale,
-    depth: '1',
-    where: JSON.stringify({ slug: { equals: slug } }),
-    limit: '1',
-  })
-
-  res = await fetch(`${API_BASE}/posts?${params}`)
-  if (!res.ok) {
-    throw new Error(`Failed to fetch post: ${res.statusText}`)
-  }
-  data = await res.json()
-  if (data.docs?.[0]?._status === 'published') {
-    return data.docs[0]
-  }
-
-  return data.docs[0] || null
+/**
+ * Slugs of the same document in both locales (same Payload id).
+ * Used for hreflang alternates + canonical metadata.
+ */
+export async function fetchPostAlternates(
+  id: string,
+): Promise<{ en: string | null; tr: string | null }> {
+  const [en, tr] = await Promise.all([
+    fetchDocSlugById('posts', id, 'en'),
+    fetchDocSlugById('posts', id, 'tr'),
+  ])
+  return { en, tr }
 }
 
 export async function fetchCategories(locale: Locale = 'en'): Promise<Category[]> {
@@ -108,7 +118,7 @@ export async function fetchCategories(locale: Locale = 'en'): Promise<Category[]
     sort: 'title',
   })
 
-  const res = await fetch(`${API_BASE}/categories?${params}`)
+  const res = await fetch(apiUrl(`/categories?${params}`))
   if (!res.ok) {
     throw new Error(`Failed to fetch categories: ${res.statusText}`)
   }
@@ -128,7 +138,7 @@ export async function fetchPostsByCategory(
     limit: '1',
   })
 
-  const catRes = await fetch(`${API_BASE}/categories?${catParams}`)
+  const catRes = await fetch(apiUrl(`/categories?${catParams}`))
   const catData = await catRes.json()
   const category: Category | null = catData.docs[0] || null
 
@@ -149,7 +159,7 @@ export async function fetchPostsByCategory(
     sort: '-publishedDate',
   })
 
-  const postRes = await fetch(`${API_BASE}/posts?${postParams}`)
+  const postRes = await fetch(apiUrl(`/posts?${postParams}`))
   const postData = await postRes.json()
   return { category, posts: postData.docs }
 }
@@ -170,7 +180,7 @@ export async function fetchDocBySlug(
     where: JSON.stringify({ slug: { equals: slug } }),
   })
 
-  const res = await fetch(`${API_BASE}/${collection}?${params}`)
+  const res = await fetch(apiUrl(`/${collection}?${params}`))
   if (!res.ok) return null
   const data = await res.json()
   return (data.docs && data.docs[0]) || null
@@ -184,7 +194,7 @@ export async function fetchDocSlugById(
   id: string,
   locale: Locale = 'en'
 ): Promise<string | null> {
-  const res = await fetch(`${API_BASE}/${collection}/${id}?locale=${locale}&depth=0`)
+  const res = await fetch(apiUrl(`/${collection}/${id}?locale=${locale}&depth=0`))
   if (!res.ok) return null
   const data = await res.json()
   return data.slug ?? null

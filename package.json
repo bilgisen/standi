@@ -5,6 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "blog:seed": "tsx scripts/seed-blog-posts.ts",
     "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" payload build",
     "build:vinext": "vinext build",
     "deploy": "npm run build:vinext && npm run deploy:app",
