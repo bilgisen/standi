@@ -61,7 +61,7 @@ export async function fetchPosts(
     depth: '1',
     page: String(page),
     limit: String(limit),
-    where: JSON.stringify({ _status: { equals: 'published' } }),
+    'where[_status][equals]': 'published',
     sort: '-publishedDate',
   })
 
@@ -82,7 +82,7 @@ export async function fetchPostBySlug(
   const params = new URLSearchParams({
     locale,
     depth: '1',
-    where: JSON.stringify({ slug: { equals: slug } }),
+    'where[slug][equals]': slug,
     limit: '1',
   })
 
@@ -134,7 +134,7 @@ export async function fetchPostsByCategory(
   const catParams = new URLSearchParams({
     locale,
     depth: '0',
-    where: JSON.stringify({ slug: { equals: slug } }),
+    'where[slug][equals]': slug,
     limit: '1',
   })
 
@@ -150,12 +150,8 @@ export async function fetchPostsByCategory(
     locale,
     depth: '1',
     limit: String(limit),
-    where: JSON.stringify({
-      and: [
-        { _status: { equals: 'published' } },
-        { category: { equals: category.id } },
-      ],
-    }),
+    'where[and][0][_status][equals]': 'published',
+    'where[and][1][category][equals]': category.id,
     sort: '-publishedDate',
   })
 
@@ -177,7 +173,7 @@ export async function fetchDocBySlug(
     locale,
     depth: '0',
     limit: '1',
-    where: JSON.stringify({ slug: { equals: slug } }),
+    'where[slug][equals]': slug,
   })
 
   const res = await fetch(apiUrl(`/${collection}?${params}`))
