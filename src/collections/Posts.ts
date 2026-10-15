@@ -38,6 +38,9 @@ const validateLocales: CollectionConfig['hooks']['beforeChange'][number] = ({
   originalDoc,
 }) => {
   if (operation === 'create' || operation === 'update') {
+    // Object form (admin UI / full writes): enforce both locales,
+    // falling back to the stored document for partial updates.
+    // String form (single-locale REST write, e.g. ?locale=en): allow.
     const title =
       data?.title && typeof data.title === 'object'
         ? { ...(originalDoc?.title as Record<string, string> | undefined), ...(data.title as Record<string, string>) }
@@ -49,14 +52,10 @@ const validateLocales: CollectionConfig['hooks']['beforeChange'][number] = ({
     if (title && typeof title === 'object') {
       if (!title.en?.trim()) throw new Error('English title is required')
       if (!title.tr?.trim()) throw new Error('Turkish title is required')
-    } else if (operation === 'create') {
-      throw new Error('English and Turkish titles are required')
     }
     if (slug && typeof slug === 'object') {
       if (!slug.en?.trim()) throw new Error('English slug is required')
       if (!slug.tr?.trim()) throw new Error('Turkish slug is required')
-    } else if (operation === 'create') {
-      throw new Error('English and Turkish slugs are required')
     }
   }
   return data
