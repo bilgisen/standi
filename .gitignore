@@ -57,3 +57,5 @@ node_modules/
 
 # Old site reference (not part of new codebase)
 nextjs-boilerplate/
+
+tmp/
